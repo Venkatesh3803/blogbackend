@@ -8,6 +8,6 @@ router.put("/:id", updateUser)
 router.delete("/:id", deleteUser)
 router.post("/follow/:id", followUser)
 router.post("/unfollow/:id", unfollowUser)
-router.get("/users?userid", getUsersPost)
+router.get("/users?username", getUsersPost)
 
 export default router
