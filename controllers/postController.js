@@ -35,7 +35,7 @@ export const getPost = async (req, res) => {
             res.status(400).json("post does not exist")
         }
     } catch (error) {
-        res.status(500).json({ messgae: error.messgae })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -52,7 +52,7 @@ export const updatePost = async (req, res) => {
             res.status(400).json("you cant update others post")
         }
     } catch (error) {
-        res.status(500).json({ messgae: error.messgae })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -79,7 +79,7 @@ export const getAllPost = async (req, res) => {
         const Post = await postModel.find();
         res.status(200).json(Post)
     } catch (error) {
-        res.status(500).json({ messgae: error.messgae })
+        res.status(500).json({ message: error.message })
     }
 }
 

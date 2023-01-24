@@ -119,12 +119,12 @@ export const unfollowUser = async (req, res) => {
 //getting users post
 
 export const getUsersPost = async (req, res) => {
-    const id = req.params.id;
-    const user = await UserModel.findById(id)
-    const { username } = req.body
+    const userId = req.query.userId;
+    const user = await UserModel.findById(userId)
+    const { currentUserId } = req.body
     try {
-        if (user.username === username) {
-            const post = await postModel.find({ username: req.body.username })
+        if (user.id === currentUserId) {
+            const post = await postModel.find({ userId:currentUserId })
             res.status(200).json(post)
         } else {
             res.status(402).json("you dint have post anything")
