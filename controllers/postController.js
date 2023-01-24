@@ -69,11 +69,11 @@ export const deletePost = async (req, res) => {
 
 // get all posts
 export const getAllPost = async (req, res) => {
-    const username = req.query.user
+    const qUsername = req.query.username;
     try {
         let post;
-        if (username) {
-            post = await postModel.find({ username });
+        if (qUsername) {
+            post = await postModel.find({ username:qUsername });
         } else (
             post = await postModel.find()
         )

@@ -1,33 +1,20 @@
 import UserModel from "../models/usermodel.js";
-import postModel from "../models/postModel.js"
 import bcrypt from "bcrypt"
 
 export const getAllUsers = async (req, res) => {
+    const qUser = req.query.username
     try {
-        const user = await UserModel.find()
+        let user
+        if (qUser) {
+            user = await UserModel.findOne({ username: qUser })
+        } else {
+            user = await UserModel.find()
+        }
         res.status(200).json(user)
     } catch (error) {
         res.status(200).json(error)
     }
 }
-
-
-// get single user
-export const getUser = async (req, res) => {
-    const id = req.params.id;
-    const user = await UserModel.findById(id)
-    try {
-        if (user) {
-            const currentUser = await UserModel(user)
-            res.status(200).json(currentUser)
-        } else {
-            res.status(400).json("you dint register yet")
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-}
-
 
 // update user
 
