@@ -3,13 +3,13 @@ import cloudinary from "../utils/cloudinary.js"
 
 // creating post
 export const createPost = async (req, res) => {
-    const { userId, title, desc, image, category } = req.body
+    const { username, title, desc, image, category } = req.body
     try {
         const result = await cloudinary.uploader.upload(image, {
             folder: "bloggingPost"
         })
         const post = await postModel.create({
-            userId, title, desc, category,
+            username, title, desc, category,
             image: {
                 public_id: result.public_id,
                 url: result.secure_url
