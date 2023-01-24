@@ -25,15 +25,9 @@ export const createPost = async (req, res) => {
 //get single post
 export const getPost = async (req, res) => {
     const id = req.params.id;
-    const post = await postModel.findById(id)
-    const { username } = req.body;
     try {
-        if (post.username === username) {
-            const currentPost = await postModel.find(post);
-            res.status(200).json(currentPost)
-        } else {
-            res.status(400).json("post does not exist")
-        }
+            const post = await postModel.findById(id)
+            res.status(200).json(post)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -75,9 +69,15 @@ export const deletePost = async (req, res) => {
 
 // get all posts
 export const getAllPost = async (req, res) => {
+    const username = req.query.user
     try {
-        const Post = await postModel.find();
-        res.status(200).json(Post)
+        let post;
+        if (username) {
+            post = await postModel.find({ username });
+        } else (
+            post = await postModel.find()
+        )
+        res.status(200).json(post)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }

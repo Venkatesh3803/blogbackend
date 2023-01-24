@@ -115,20 +115,3 @@ export const unfollowUser = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
-
-//getting users post
-
-export const getUsersPost = async (req, res) => {
-    const username = req.query.username;
-
-    try {
-
-        const post = await postModel.find({ username: username })
-        res.status(200).json(post)
-
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-
-    }
-
-}
