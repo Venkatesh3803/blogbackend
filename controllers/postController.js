@@ -26,8 +26,8 @@ export const createPost = async (req, res) => {
 export const getPost = async (req, res) => {
     const id = req.params.id;
     try {
-            const post = await postModel.findById(id)
-            res.status(200).json(post)
+        const post = await postModel.findById(id)
+        res.status(200).json(post)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -73,7 +73,7 @@ export const getAllPost = async (req, res) => {
     try {
         let post;
         if (qUsername) {
-            post = await postModel.find({ username:qUsername });
+            post = await postModel.find({ username: qUsername });
         } else (
             post = await postModel.find()
         )
@@ -87,20 +87,20 @@ export const getAllPost = async (req, res) => {
 export const likePost = async (req, res) => {
     const id = req.params.id;
     const post = await postModel.findById(id)
-    const { username } = req.body;
+    const { userId } = req.body;
 
     try {
-        if (!post.likes.includes(username)) {
-            await post.updateOne({ $push: { likes: username } })
+        if (!post.likes.includes(userId)) {
+            await post.updateOne({ $push: { likes: userId } })
             res.status(200).json("post likes sucessfully")
         } else {
-            await post.updateOne({ $pull: { likes: username } })
+            await post.updateOne({ $pull: { likes: userId } })
             res.status(200).json("post unlikes sucessfully")
         }
     } catch (error) {
-
+        res.status(500).json({ message: error.message })
     }
 }
-//comments
+
 
 

@@ -12,9 +12,8 @@ export const register = async (req, res) => {
 
     try {
         const oldUser = await UserModel.findOne({ username });
-
         if (oldUser) {
-            return res.status(401).json("this username is already exits")
+            return res.status(401).json({ message: "this username is already exits" })
         }
 
         const user = await newUser.save();
@@ -22,7 +21,7 @@ export const register = async (req, res) => {
         const token = jwt.sign({
             username: user.username, id: user._id
         }, process.env.JWT_TOKEN, { expiresIn: "1h" })
-        res.status(200).json({ user, token });
+        res.status(200).json({ user, token, message: "Registerd Sucessful" });
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -42,12 +41,12 @@ export const loginUser = async (req, res) => {
 
 
                 const { password, isAdmin, ...others } = login._doc
-                res.status(200).json({ others, token })
+                res.status(200).json({ others, token, message: "Login Sucessful" })
             } else (
-                res.status(401).json("invalid credentials")
+                res.status(401).json({ message: "invalid credentials" })
             )
         } else {
-            res.status(401).json("user does not exist")
+            res.status(401).json({ message: "user does not exist" })
         }
 
     } catch (error) {
